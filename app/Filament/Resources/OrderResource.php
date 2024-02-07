@@ -69,18 +69,18 @@ class OrderResource extends Resource
                         ->required(),
 
                     Placeholder::make('.')
-                    ->content(function (Get $get, Set $set): string {
-                        if ($get('items')) {
-                            $set('total_price', collect($get('items'))->sum('subtotal'));
-                            // dump($get('total_price'));
+                        ->content(function (Get $get, Set $set): string {
+                            if ($get('items')) {
+                                $set('total_price', collect($get('items'))->sum('subtotal'));
+                                // dump($get('total_price'));
+
+                                return "";
+                                //return 'R$ ' . number_format(collect($get('products'))->sum('subtotal'), 2);
+                            }
+                            $set('total_price', 0);
 
                             return "";
-                            //return 'R$ ' . number_format(collect($get('products'))->sum('subtotal'), 2);
-                        }
-                        $set('total_price', 0);
-
-                        return "";
-                    }),
+                        }),
                 ]),
 
                 /*    Placeholder::make('total')
@@ -90,7 +90,7 @@ class OrderResource extends Resource
 
                 Section::make('Produtos')->columns(2)->schema([
                     Repeater::make('items')
-                       ->relationship()
+                        ->relationship()
                         ->schema([
                             Select::make('product_id')
                                 ->label('Produto')
@@ -129,6 +129,20 @@ class OrderResource extends Resource
 
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'new'        => 'success',
+                        'processing' => 'warning',
+                        'shipped'    => 'info',
+                        'delivered'  => 'gray',
+                        'canceled'   => 'danger',
+                    })->formatStateUsing(fn (string $state): string => match ($state) {
+                        'new'        => 'Novo',
+                        'processing' => 'Em Preparo',
+                        'shipped'    => 'Enviado',
+                        'delivered'  => 'Entregue',
+                        'canceled'   => 'Cancelado',
+                    })
                     ->searchable()
                     ->sortable(),
 
