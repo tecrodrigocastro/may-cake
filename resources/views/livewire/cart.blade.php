@@ -47,8 +47,17 @@
                 </div>
             </div>
             <!-- END HR -->
+
+            @if (count($items) == 0)
+                <div class="flex flex-col justify-center items-center">
+
+                    <p class="text-2xl font-bold text-pink-600">Seu carrinho está vazio</p>
+                </div>
+            @endif
+
             <!-- CONTENT -->
             @foreach ($items as $item)
+
                 <div class="flex flex-row justify-between items-center px-12">
                     <div class="flex flex-row gap-10 justify-center items-center">
                         <img src="{{ asset('images/bolo.png') }}" alt="" class="w-24">
@@ -56,7 +65,7 @@
                     </div>
 
                     <div class="flex flex-row gap-24 justify-center items-center">
-                        <p>R$ {{ $item['unitPrice'] }},00</p>
+                        <p>R$ {{ $item['unitPrice'] }}</p>
                         <div class="flex flex-row gap-2 justify-center items-center">
                             <button wire:click="decrement"
                                 class="w-8 h-8 bg-pink-700 text-white rounded-full">-</button>
@@ -64,8 +73,8 @@
                             <button wire:click="increment"
                                 class="w-8 h-8 bg-pink-700 text-white rounded-full">+</button>
                         </div>
-                        <p>R$ {{ $item['subtotal'] }},00</p>
-                        <button class="w-8 h-8  text-white rounded-full flex flex-col justify-center">
+                        <p>R$ {{ $item['subtotal'] }}</p>
+                        <button  wire:click="removeFromCart({{ $item['id']}})"  type="button" class="w-8 h-8  text-white rounded-full flex flex-col justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CB3C68"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
@@ -83,7 +92,7 @@
             <div class="flex flex-col bg-pink-100 justify-center text-center h-16">
 
                 <div class="flex flex-row justify-end text-center px-10 text-pink-600 font-bold text-2xl">
-                    <p>Subtotal: R$ 300,00 </p>
+                    <p>Subtotal: R$ {{$total}} </p>
 
                 </div>
             </div>

@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\{Pages, RelationManagers};
-use App\Models\{Customer, Order, Product};
+use App\Models\{Adreesse, Customer, Order, Product};
 use Filament\Forms\Components\{Fieldset, Placeholder, Repeater, Section, Select, TextInput};
 use Filament\Forms\{Form, Get, Set};
 use Filament\Resources\Resource;
@@ -59,7 +59,9 @@ class OrderResource extends Resource
 
                             //return $customer->addresses->pluck('street', 'id');
 
-                            return $customer->adreesses->pluck('street', 'id');
+                            $addresses = Adreesse::where('customer_id', $customer->id)->get();
+
+                            return  $addresses->pluck('street', 'id');
                         })
                         ->required(),
                     TextInput::make('total_price')
@@ -104,7 +106,7 @@ class OrderResource extends Resource
                                 ->default(0)
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, Set $set, Get $get) {
-                                    $set('subtotal', $state * Product::find($get('product_id'))?->price ?? 0);
+                                    $set('subtotal', $state * Product::find($get('product_id'))->price);
                                 })
                                 ->required(),
 
@@ -136,12 +138,14 @@ class OrderResource extends Resource
                         'shipped'    => 'info',
                         'delivered'  => 'gray',
                         'canceled'   => 'danger',
+                        default      => 'success',
                     })->formatStateUsing(fn (string $state): string => match ($state) {
                         'new'        => 'Novo',
                         'processing' => 'Em Preparo',
                         'shipped'    => 'Enviado',
                         'delivered'  => 'Entregue',
                         'canceled'   => 'Cancelado',
+                        default      => 'Novo',
                     })
                     ->searchable()
                     ->sortable(),

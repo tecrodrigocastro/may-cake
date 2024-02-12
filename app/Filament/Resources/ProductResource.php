@@ -56,7 +56,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->label('Descrição')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Preço')
                     ->money('brl')

@@ -17,6 +17,8 @@ class Adreesse extends Model
         'neighborhood',
     ];
 
+    protected $table = 'adreesses';
+
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');

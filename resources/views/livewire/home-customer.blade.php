@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="flex flex-col h-full">
 
     <div class="px-24 py-10 h-3/4 w-full flex flex-col">
         <!-- HEADER -->
@@ -29,7 +29,7 @@
         </div>
 
         <!-- SEARCH -->
-        <div class="flex flex-row justify-between pt-10">
+        <div class="flex flex-row justify-between pt-10 pb-8">
             <div class=" flex flex-col">
                 <h1 class="text-2xl text-pink-500 font-bold"> Todos os produtos</h1>
                 <p class="text-gray-400">120 produtos</p>
@@ -42,15 +42,17 @@
             </div>
         </div>
         <!-- PRODUCTS -->
-        <div class="grid grid-cols-5 gap-9">
+        <div class="grid grid-cols-5 gap-9 items-center">
             @foreach ($products as $product)
                 <a href="{{ route('product', $product->id) }}">
-                    <div class="flex flex-col items-center">
-                        <img src="{{ asset('storage/{{$product->images[0]}}') }}" alt="" class="bg-cover">
+                    <div class="flex flex-col items-center border border-pink-200 rounded-md">
+                        <div class="max-h-56">
+                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="" class="bg-contain">
+                        </div>
                         <div
                             class="h-28 w-full bg-gray-100 border border-pink-200 rounded-md text-center flex flex-col justify-around">
                             <h1 class="text-pink-500 font-bold">{{ $product->name }}</h1>
-                            <p class="text-pink-700 font-bold">R$ {{$product->price}}</p>
+                            <p class="text-pink-700 font-bold">R$ {{ $product->price }}</p>
                         </div>
                     </div>
                 </a>
@@ -58,6 +60,8 @@
         </div>
 
     </div>
+
+
     <!-- PRE-FOOTER -->
     <div class="h-48 w-full bg-prefooter bg-cover flex flex-col justify-center">
 
@@ -82,4 +86,5 @@
             <\> Desenvolvido por REDRODRIGO
         </p>
     </div>
+
 </div>

@@ -6,11 +6,10 @@ use Livewire\Component;
 
 class HomeCustomer extends Component
 {
-
     public $products = null;
 
-
-    public function mount() {
+    public function mount()
+    {
         $this->products = \App\Models\Product::all();
     }
 
