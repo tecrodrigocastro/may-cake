@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full">
+<div class="flex flex-col h-screen">
 
     <div class="px-24 py-10 h-3/4 w-full flex flex-col">
         <!-- HEADER -->
@@ -44,10 +44,10 @@
         <!-- PRODUCTS -->
         <div class="grid grid-cols-5 gap-9 items-center">
             @foreach ($products as $product)
-                <a href="{{ route('product', $product->id) }}">
-                    <div class="flex flex-col items-center border border-pink-200 rounded-md">
-                        <div class="max-h-56">
-                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="" class="bg-contain">
+                <a href="{{ route('product', $product->id) }}" class="">
+                    <div class="flex flex-col items-center border border-pink-200 rounded-md ">
+                        <div class="h-56 bg-cover w-full max-h-56 bg-[{{url(asset('storage/' . $product->images[0]))}}]">
+                            {{-- <img src="{{ asset('storage/' . $product->images[0]) }}" alt="" class="bg-contain max-h-56 h-56 w-full"> --}}
                         </div>
                         <div
                             class="h-28 w-full bg-gray-100 border border-pink-200 rounded-md text-center flex flex-col justify-around">

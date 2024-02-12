@@ -31,7 +31,6 @@ class Checkout extends Component
 
         dump($this->only('payment'));
 
-
         // save the order
         // redirect to thank you page
     }
