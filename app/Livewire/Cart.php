@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class Cart extends Component
 {
-
     public $items = [];
 
     public $total = 0;
@@ -37,23 +36,30 @@ class Cart extends Component
             'subtotal'  => 80,
         ]); */
 
-/*     public function increment()
-    {
-        $this->quantity++;
-        $this->subtotal = $this->unitPrice * $this->quantity;
-    }
-
-    public function decrement()
-    {
-        if ($this->quantity >= 1) {
-            $this->quantity--;
+    /*     public function increment()
+        {
+            $this->quantity++;
             $this->subtotal = $this->unitPrice * $this->quantity;
         }
-    } */
+
+        public function decrement()
+        {
+            if ($this->quantity >= 1) {
+                $this->quantity--;
+                $this->subtotal = $this->unitPrice * $this->quantity;
+            }
+        } */
 
     public function addToCart(CartService $cartService, int $productId)
     {
-        $cartService->addToCart($this->productId, 1);
+        $cartService->addToCart($productId, 1);
+        $this->mount($cartService);
+    }
+
+    public function decrementFromCart(CartService $cartService, int $productId)
+    {
+        $cartService->decrementFromCart(intval($productId));
+        $this->mount($cartService);
     }
 
     public function removeFromCart(CartService $cartService, int $productId)

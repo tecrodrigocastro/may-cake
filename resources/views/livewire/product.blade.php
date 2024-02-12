@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="flex flex-col h-full">
     <div class="px-24 py-10 h-3/4 w-full flex flex-col">
         <!-- HEADER -->
         <div class="flex flex-row justify-between">

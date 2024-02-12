@@ -46,6 +46,7 @@ class CartService
                 unset($shoppingCart[$productId]);
             } else {
                 $shoppingCart[$productId]['quantity'] -= 1;
+                $shoppingCart[$productId]['subtotal'] = $shoppingCart[$productId]['quantity'] * $shoppingCart[$productId]['unitPrice'];
             }
         }
 

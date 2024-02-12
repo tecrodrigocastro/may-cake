@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="flex flex-col ">
     <div class="px-24 py-10 h-3/4 w-full flex flex-col">
         <!-- HEADER -->
         <div class="flex flex-row justify-between">
@@ -57,24 +57,24 @@
 
             <!-- CONTENT -->
             @foreach ($items as $item)
-
-                <div class="flex flex-row justify-between items-center px-12">
+                <div class="flex flex-row  justify-between items-center px-12">
                     <div class="flex flex-row gap-10 justify-center items-center">
-                        <img src="{{ asset('images/bolo.png') }}" alt="" class="w-24">
+                        <img src="{{ asset('storage/' . $item['image']) }}" alt="" class="w-24">
                         <p>{{ $item['name'] }}</p>
                     </div>
 
                     <div class="flex flex-row gap-24 justify-center items-center">
-                        <p>R$ {{ $item['unitPrice'] }}</p>
+                        <p class="text-start">R$ {{ $item['unitPrice'] }}</p>
                         <div class="flex flex-row gap-2 justify-center items-center">
-                            <button wire:click="decrement"
+                            <button wire:click="decrementFromCart({{ $item['id'] }})"
                                 class="w-8 h-8 bg-pink-700 text-white rounded-full">-</button>
                             <p>{{ $item['quantity'] }}</p>
-                            <button wire:click="increment"
+                            <button wire:click="addToCart({{ $item['id'] }})"
                                 class="w-8 h-8 bg-pink-700 text-white rounded-full">+</button>
                         </div>
                         <p>R$ {{ $item['subtotal'] }}</p>
-                        <button  wire:click="removeFromCart({{ $item['id']}})"  type="button" class="w-8 h-8  text-white rounded-full flex flex-col justify-center">
+                        <button wire:click="removeFromCart({{ $item['id'] }})" wire:confirm="Tem certeza de que deseja excluir este produto?" type="button"
+                            class="w-8 h-8  text-white rounded-full flex flex-col justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CB3C68"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
@@ -92,7 +92,7 @@
             <div class="flex flex-col bg-pink-100 justify-center text-center h-16">
 
                 <div class="flex flex-row justify-end text-center px-10 text-pink-600 font-bold text-2xl">
-                    <p>Subtotal: R$ {{$total}} </p>
+                    <p>Subtotal: R$ {{ $total }} </p>
 
                 </div>
             </div>

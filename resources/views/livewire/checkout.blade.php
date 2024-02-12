@@ -32,6 +32,7 @@
         <div class="flex flex-col p-14 gap-8">
             <h1 class="text-4xl font-bold text-pink-600 underline ">Finalizar compra</h1>
 
+            <form wire:submit="save">
             <div class="flex flex-row gap-6 justify-between">
                 <!-- DATA CUSTOMER -->
                 <div class="flex flex-col gap-2">
@@ -76,20 +77,20 @@
                 <div class="flex flex-col gap-2">
                     <h1 class="text-3xl font-bold text-pink-600 ">Forma de pagamento</h1>
                     <div class="flex flex-row gap-2 items-center">
-                        <input type="radio" name="payment" id="credit" class="h-6 w-6">
-                        <label for="credit" class="text-pink-600">Cartão de crédito</label>
+                        <input type="radio"  wire:model="payment" name="payment" id="credit_card" value="credit_card" class="h-6 w-6 fill-red-500">
+                        <label for="credit_card" class="text-pink-600">Cartão de crédito</label>
                     </div>
                     <div class="flex flex-row gap-2 items-center">
-                        <input type="radio" name="payment" id="debit" class="h-6 w-6">
-                        <label for="debit" class="text-pink-600">Cartão de débito</label>
+                        <input type="radio" name="payment" wire:model="payment" id="debit_card" value="debit_card" class="h-6 w-6">
+                        <label for="debit_card" class="text-pink-600">Cartão de débito</label>
                     </div>
                     <div class="flex flex-row gap-2 items-center">
-                        <input type="radio" name="payment" id="pix" class="h-6 w-6">
+                        <input type="radio" name="payment" wire:model="payment" id="pix" value="pix" class="h-6 w-6">
                         <label for="pix" class="text-pink-600">Pix</label>
                     </div>
                     <div class="flex flex-row gap-2 items-center">
-                        <input type="radio" name="payment" id="cash" class="h-6 w-6">
-                        <label for="pix" class="text-pink-600">Dinheiro</label>
+                        <input type="radio" name="payment" wire:model="payment" id="cash" value="cash" class="h-6 w-6">
+                        <label for="cash" class="text-pink-600">Dinheiro</label>
                     </div>
 
                 </div>
@@ -104,28 +105,28 @@
 
                 <div class="w-96 h-auto border border-pink-600 rounded-lg flex flex-col p-6 gap-3">
 
-                    @for ($i = 0; $i < 3; $i++)
+                    @foreach ($items as $item)
                         <div class="flex flex-row items-center gap-3 text-pink-600 text-lg ">
-                            <img src="{{ asset('images/bolo.png') }}" alt="" class="w-20">
-                            <p>Bolo Recheado X 3</p>
-                            <p class="font-bold">R$ 30,00</p>
+                            <img src="{{ asset($item['image']) }}" alt="" class="w-20">
+                            <p>{{{ $item['name'].' X ' . $item['quantity']}}}</p>
+                            <p class="font-bold">R$ {{$item['subtotal']}}</p>
                         </div>
-                    @endfor
+                    @endforeach
 
                     <hr class="h-0.5  bg-pink-600">
 
                     <div class="flex flex-row justify-between text-pink-600">
                         <h1>Subtotal</h1>
-                        <h1>R$ 30,00</h1>
+                        <h1>R$ {{$total}}</h1>
                     </div>
                     <div class="flex flex-row justify-between text-pink-600">
                         <h1>Custo de entrega</h1>
-                        <h1>R$ 10,00</h1>
+                        <h1>R$ {{$delivery_price}}</h1>
                     </div>
                     <hr class="h-0.5  bg-pink-600">
                     <div class="flex flex-row justify-between text-pink-600 font-bold text-2xl">
                         <h1>Total</h1>
-                        <h1>R$ 40,00</h1>
+                        <h1>R$ {{$total + $delivery_price}}</h1>
                     </div>
 
                 </div>
@@ -134,38 +135,39 @@
 
 
             </div>
-            <div class="flex flex-row justify-end gap-3">
+            <div class="flex flex-row justify-end gap-3 pt-5">
                 <button class="h-9  px-3  text-pink-600 border border-pink-600 rounded-full ">Cancelar</button>
-                <button class="h-9  px-3  text-white bg-pink-600 rounded-full ">Finalizar compra</button>
+                <button type="submit" class="h-9  px-3  text-white bg-pink-600 rounded-full ">Finalizar compra</button>
             </div>
+        </form>
 
         </div>
         <!-- END MAIN -->
     </div>
-        <!-- PRE-FOOTER -->
-        <div class="h-48 w-full bg-prefooter bg-cover flex flex-col justify-center">
+    <!-- PRE-FOOTER -->
+    <div class="h-48 w-full bg-prefooter bg-cover flex flex-col justify-center">
 
-            <div class="flex flex-row justify-center gap-10 ">
-                <div class="flex flex-col items-center">
-                    <img src="{{ asset('images/logovertical.png') }}" alt="" class="w-36">
-                    <div class="flex flex-row gap-2 text-pink-500 font-bold  ">
-                        <a href="" class="">Inicio</a>
-                        <a href="" class="">Carrinho</a>
-                        <a href="" class="">Contato</a>
-                        <a href="" class="">Perfil</a>
-                    </div>
+        <div class="flex flex-row justify-center gap-10 ">
+            <div class="flex flex-col items-center">
+                <img src="{{ asset('images/logovertical.png') }}" alt="" class="w-36">
+                <div class="flex flex-row gap-2 text-pink-500 font-bold  ">
+                    <a href="" class="">Inicio</a>
+                    <a href="" class="">Carrinho</a>
+                    <a href="" class="">Contato</a>
+                    <a href="" class="">Perfil</a>
                 </div>
             </div>
-
         </div>
-         <!-- END PRE-FOOTER -->
 
-        <!-- FOOTER -->
-        <div class="h-auto w-full justify-center flex flex-col text-center bg-pink-600 text-white font-bold">
-            <h1>@ 2024 May Cake - Todos os direitos reservados.</h1>
-            <p>
-                <\> Desenvolvido por REDRODRIGO
-            </p>
-        </div>
-         <!-- END FOOTER -->
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- FOOTER -->
+    <div class="h-auto w-full justify-center flex flex-col text-center bg-pink-600 text-white font-bold">
+        <h1>@ 2024 May Cake - Todos os direitos reservados.</h1>
+        <p>
+            <\> Desenvolvido por REDRODRIGO
+        </p>
+    </div>
+    <!-- END FOOTER -->
 </div>
