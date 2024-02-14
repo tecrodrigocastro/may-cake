@@ -46,7 +46,7 @@
             @foreach ($products as $product)
                 <a href="{{ route('product', $product->id) }}" class="">
                     <div class="flex flex-col items-center border border-pink-200 rounded-md ">
-                        <div class="h-56 bg-cover w-full max-h-56 bg-[{{url(asset('storage/' . $product->images[0]))}}]">
+                        <div class="h-56 bg-cover w-full max-h-56 " style="background-image: url({{asset('storage/' . $product->images[0])}})">
                             {{-- <img src="{{ asset('storage/' . $product->images[0]) }}" alt="" class="bg-contain max-h-56 h-56 w-full"> --}}
                         </div>
                         <div
