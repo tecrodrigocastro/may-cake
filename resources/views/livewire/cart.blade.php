@@ -1,4 +1,4 @@
-<div class="flex flex-col ">
+<div class="flex flex-col  h-screen">
     <div class="px-24 py-10 h-3/4 w-full flex flex-col">
         <!-- HEADER -->
         <div class="flex flex-row justify-between">
@@ -73,7 +73,8 @@
                                 class="w-8 h-8 bg-pink-700 text-white rounded-full">+</button>
                         </div>
                         <p>R$ {{ $item['subtotal'] }}</p>
-                        <button wire:click="removeFromCart({{ $item['id'] }})" wire:confirm="Tem certeza de que deseja excluir este produto?" type="button"
+                        <button wire:click="removeFromCart({{ $item['id'] }})"
+                            wire:confirm="Tem certeza de que deseja excluir este produto?" type="button"
                             class="w-8 h-8  text-white rounded-full flex flex-col justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CB3C68"
                                 class="bi bi-trash" viewBox="0 0 16 16">
@@ -128,29 +129,10 @@
 
     </div>
     <!-- PRE-FOOTER -->
-    <div class="h-48 w-full bg-prefooter bg-cover flex flex-col justify-center">
-
-        <div class="flex flex-row justify-center gap-10 ">
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/logovertical.png') }}" alt="" class="w-36">
-                <div class="flex flex-row gap-2 text-pink-500 font-bold  ">
-                    <a href="" class="">Inicio</a>
-                    <a href="" class="">Carrinho</a>
-                    <a href="" class="">Contato</a>
-                    <a href="" class="">Perfil</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
+    <x-prefooter> </x-prefooter>
     <!-- END PRE-FOOTER -->
 
     <!-- FOOTER -->
-    <div class="h-auto w-full justify-center flex flex-col text-center bg-pink-600 text-white font-bold">
-        <h1>@ 2024 May Cake - Todos os direitos reservados.</h1>
-        <p>
-            <\> Desenvolvido por REDRODRIGO
-        </p>
-    </div>
+    <x-footer></x-footer>
     <!-- END FOOTER -->
 </div>

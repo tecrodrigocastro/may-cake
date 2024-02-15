@@ -145,29 +145,10 @@
         <!-- END MAIN -->
     </div>
     <!-- PRE-FOOTER -->
-    <div class="h-48 w-full bg-prefooter bg-cover flex flex-col justify-center">
-
-        <div class="flex flex-row justify-center gap-10 ">
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/logovertical.png') }}" alt="" class="w-36">
-                <div class="flex flex-row gap-2 text-pink-500 font-bold  ">
-                    <a href="" class="">Inicio</a>
-                    <a href="" class="">Carrinho</a>
-                    <a href="" class="">Contato</a>
-                    <a href="" class="">Perfil</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
+    <x-prefooter />
     <!-- END PRE-FOOTER -->
 
     <!-- FOOTER -->
-    <div class="h-auto w-full justify-center flex flex-col text-center bg-pink-600 text-white font-bold">
-        <h1>@ 2024 May Cake - Todos os direitos reservados.</h1>
-        <p>
-            <\> Desenvolvido por REDRODRIGO
-        </p>
-    </div>
+   <x-footer />
     <!-- END FOOTER -->
 </div>

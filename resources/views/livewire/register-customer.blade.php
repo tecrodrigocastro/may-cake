@@ -1,4 +1,4 @@
-<div class="w-full h-full bg-pink-200">
+<div class="w-full h-screen bg-pink-200">
     <div class="flex flex-row ">
         <div class="w-1/2">
             <img src="{{ asset('images/bglogin.png') }}" alt="login">
@@ -49,7 +49,7 @@
                 </button>
 
                 <div class="flex flex-col items-center">
-                    <p class="text-gray-400 ">Já tem conta? Faça login clicando <a href="{{route('login-customer')}}" class="underline text-pink-600">aqui</a></p>
+                    <p class="text-gray-400 ">Já tem conta? Faça login clicando <a href="{{route('login')}}" class="underline text-pink-600">aqui</a></p>
                 </div>
             </div>
         </div>
@@ -57,9 +57,5 @@
 
     </div>
 
-    <div class="h-auto w-full justify-center flex flex-col text-center bg-pink-600 text-white font-bold">
-        <h1>@ 2024 May Cake - Todos os direitos reservados.</h1>
-        <p><\> Desenvolvido por REDRODRIGO</p>
-        <p>çkjasvfabjbfjsbfva</p>
-    </div>
+   <x-footer />
 </div>
