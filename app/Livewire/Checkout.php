@@ -15,11 +15,16 @@ class Checkout extends Component
 
     public $payment = '';
 
+    public $user;
+
     public function mount(CartService $cartService)
     {
+        $this->user = auth()->user();
+
         $this->items = $cartService->getShoppingCart();
         //$this->total = array_sum(array_column($this->items, 'subtotal'));
         $this->total = $cartService->getCartTotal();
+
     }
 
     public function save()

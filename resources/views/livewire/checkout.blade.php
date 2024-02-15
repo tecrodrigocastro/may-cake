@@ -37,11 +37,11 @@
                 <!-- DATA CUSTOMER -->
                 <div class="flex flex-col gap-2">
                     <h1 class="text-3xl font-bold text-pink-600 ">Dados do destinatario</h1>
-                    <input type="text" disabled name="name" id="name" value="Rodrigo Castro"
+                    <input type="text" disabled name="name" id="name" value="{{$user->name}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
-                    <input type="tel" disabled name="tel" id="tel" value="(85) 9 91546543"
+                    <input type="tel" disabled name="tel" id="tel" value="{{$user->phone}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
-                    <input type="text" disabled name="cpf" id="cpf" value="000.000.000-00"
+                    <input type="text" disabled name="cpf" id="cpf" value="{{$user->cpf}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                     <div class="flex flex-row justify-end">
                         <button class="text-pink-600 font-bold pb-8">Editar dados</button>

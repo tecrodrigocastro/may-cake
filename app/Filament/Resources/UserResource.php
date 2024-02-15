@@ -56,7 +56,12 @@ class UserResource extends Resource
                         ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                         ->dehydrated(fn ($state) => filled($state))
                         ->required(fn (string $context): bool => $context === 'create')
-                        ->disabled(fn (string $context): bool => $context === 'edit'),
+                        ->disabled(function (string $context): bool {
+
+                            //dd(auth()->id(), request()->route('record'), $context);
+
+                            return $context === 'edit'; // && auth()->id() != request()->route('record');
+                        }),
 
                         Select::make('type')
                         ->label('Tipo de usuário')

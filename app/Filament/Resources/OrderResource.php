@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\{Pages, RelationManagers};
-use App\Models\{Adreesse, Customer, Order, Product};
+use App\Models\{Adreesse, Customer, Order, Product, User};
 use Filament\Forms\Components\{Fieldset, Placeholder, Repeater, Section, Select, TextInput};
 use Filament\Forms\{Form, Get, Set};
 use Filament\Resources\Resource;
@@ -26,10 +26,11 @@ class OrderResource extends Resource
         return $form
             ->schema([
                 Fieldset::make('Dados do pedido')->schema([
-                    Select::make('customer_id')
+                    Select::make('user_id')
                         ->label('Cliente')
+                        ->options(User::where('type','customer')->pluck('name', 'id'))
                         ->reactive()
-                        ->relationship('customer', 'name')
+                        //->relationship('user', 'name')
                         ->required(),
 
                     Select::make('status')->options([
@@ -51,15 +52,15 @@ class OrderResource extends Resource
                         ->label('Endereço')
                         ->options(function (Get $get) {
 
-                            if (!$get('customer_id')) {
+                            if (!$get('user_id')) {
                                 return [];
                             }
 
-                            $customer = Customer::find($get('customer_id'));
+                            $customer = User::find($get('user_id'));
 
                             //return $customer->addresses->pluck('street', 'id');
 
-                            $addresses = Adreesse::where('customer_id', $customer->id)->get();
+                            $addresses = Adreesse::where('user_id', $customer->id)->get();
 
                             return  $addresses->pluck('street', 'id');
                         })
@@ -90,7 +91,7 @@ class OrderResource extends Resource
                     return '€' . number_format($get('cost') * $get('quantity'), 2);
                 }), */
 
-                Section::make('Produtos')->columns(2)->schema([
+                Section::make('Produtos')->schema([
                     Repeater::make('items')
                         ->relationship()
                         ->schema([
@@ -116,7 +117,7 @@ class OrderResource extends Resource
                                 ->default(0)
                                 ->required(),
                         ])->columns(3),
-                ]),
+                ])->columnSpanFull()->columnSpan(2),
             ]);
     }
 
@@ -124,7 +125,7 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Cliente')
                     ->searchable()
                     ->sortable(),
