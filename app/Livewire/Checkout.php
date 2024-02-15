@@ -22,6 +22,8 @@ class Checkout extends Component
     public $selectedAddress;
     public $addressForm;
 
+    public bool $showModal;
+
     public function mount(CartService $cartService)
     {
         $this->user = auth()->user();
