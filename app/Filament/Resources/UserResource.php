@@ -6,12 +6,18 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -23,25 +29,56 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('cpf')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
+                Fieldset::make('Informações Pessoais')->schema([
+                    TextInput::make('name')
+                        ->label('Nome')
+                        ->required()
+                        ->maxLength(255),
+                    TextInput::make('phone')
+                        ->label('Telefone')
+                        ->tel()
+                        ->required()
+                        ->mask('(99) 99999-9999'),
+                    TextInput::make('cpf')
+                        ->label('CPF')
+                        ->required()
+                        ->mask('999.999.999-99')
+                        ->minLength(11),
+                    TextInput::make('email')
+                        ->label('E-mail')
+                        ->email()
+                        ->required()
+                        ->maxLength(255),
+                    //DateTimePicker::make('email_verified_at'),
+                    TextInput::make('password')
+                        ->label('Senha')
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create')
+                        ->disabled(fn (string $context): bool => $context === 'edit'),
+
+                        Select::make('type')
+                        ->label('Tipo de usuário')
+                        ->options([
+                            'admin' => 'Administrador',
+                            'customer' => 'Cliente',
+                        ])
+
+                ]),
+
+                Fieldset::make('Endereços do cliente')->schema([
+                    Repeater::make('adreesses')
+                        ->relationship()
+                        ->label('Endereços')
+                        ->schema([
+                            TextInput::make('street')->required()->label('Endereço'),
+                            TextInput::make('neighborhood')->required()->label('Bairro'),
+                            TextInput::make('city')->required()->label('Cidade'),
+                            TextInput::make('cep')->required()->label('CEP'),
+                        ])
+                        ->columns(2),
+                ]),
             ]);
     }
 

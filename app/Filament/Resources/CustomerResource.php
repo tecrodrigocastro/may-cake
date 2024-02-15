@@ -27,26 +27,25 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Fieldset::make('Informações Pessoais')->schema([
-                    Forms\Components\TextInput::make('name')
+                    TextInput::make('name')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('phone')
+                    TextInput::make('phone')
                         ->tel()
                         ->required()
                         ->mask('(99) 99999-9999')
 
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('cpf')
+                    TextInput::make('cpf')
                         ->required()
                         ->mask('999.999.999-99')
-                        ->minLength(11)
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
+                        ->minLength(11),
+                    TextInput::make('email')
                         ->email()
 
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('password')
+                    TextInput::make('password')
                         ->password()
                         ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                         ->dehydrated(fn ($state) => filled($state))

@@ -10,7 +10,7 @@ class Adreesse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_id',
+        'user_id',
         'cep',
         'street',
         'city',
@@ -19,8 +19,8 @@ class Adreesse extends Model
 
     protected $table = 'adreesses';
 
-    public function customer()
+    public function user()
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
