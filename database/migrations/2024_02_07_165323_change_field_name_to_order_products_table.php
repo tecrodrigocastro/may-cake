@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('order_products', function (Blueprint $table) {
-            $table->renameColumn('total_price', 'subtotal');
+            //$table->renameColumn('total_price', 'subtotal');
         });
     }
 

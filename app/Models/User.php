@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'cpf',
     ];
 
     /**
@@ -44,4 +46,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    public function adreesses()
+    {
+        return $this->hasMany(Adreesse::class);
+    }
 }
