@@ -18,8 +18,9 @@ class LoginCustomer extends Component
 
     public function mount()
     {
-        /*        $this->email = '';
-        $this->password = ''; */
+        if (auth()->check()) {
+            return redirect()->to('/');
+        }
     }
 
     public function login()

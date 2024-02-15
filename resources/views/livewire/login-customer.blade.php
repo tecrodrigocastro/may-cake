@@ -23,14 +23,14 @@
                                         d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
                                 </svg>
                                 {{--     <svg class="h-5 w-5 text-gray-400"
-                        fill="none"
-                        stroke="currentColor">
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8">
-                        </path>
-                    </svg> --}}
+                                            fill="none"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8">
+                                            </path>
+                                            </svg> --}}
                             </div>
                         </div>
                         @error('email')
@@ -78,6 +78,11 @@
                         @if (session('error'))
                             <div class="bg-red-500 text-white p-3 rounded">
                                 {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="bg-green-500 text-white p-3 rounded">
+                                {{ session('success') }}
                             </div>
                         @endif
                     </div>

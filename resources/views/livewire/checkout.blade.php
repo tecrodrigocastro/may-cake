@@ -44,20 +44,38 @@
                     <input type="text" disabled name="cpf" id="cpf" value="{{$user->cpf}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                     <div class="flex flex-row justify-end">
-                        <button class="text-pink-600 font-bold pb-8">Editar dados</button>
+                        <a href="{{route('profile')}}" class="text-pink-600 font-bold pb-8">Editar dados</a>
                     </div>
 
                     <h1 class="text-3xl font-bold text-pink-600 ">Endereço do destinatário</h1>
-                    <input type="text" disabled name="street" id="street" value="Rua Serrote"
+                    <div class="inline-block relative ">
+                        <select  wire:model="selectedAddress" wire:change="loadAddress"  class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">Selecione um endereço</option>
+                            @foreach($addresses as $address)
+                              <option value="{{ $address->id }}">{{ $address->street }}</option>
+                          @endforeach
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-6-6h12l-6 6z"/></svg>
+                        </div>
+                      </div>
+{{--                     <select wire:model="selectedAddress" wire:change="loadAddress" class="">
+                        <option value="">Selecione um endereço</option>
+                        @foreach($addresses as $address)
+                            <option value="{{ $address->id }}">{{ $address->street }}</option>
+                        @endforeach
+                    </select> --}}
+                    <input type="text" disabled name="street" id="street" value="{{$addressForm->street}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                     <div class="flex flex-row gap-3 items-center text-pink-600">
-                        <input type="number" disabled name="number" id="number" value="146"
+                        <input type="number" disabled name="number" id="number" value="0"
                             class="border border-gray-400 rounded-lg h-8 w-20 px-3 text-gray-400 bg-white">
-                        <input type="checkbox" disabled name="" id="">Sem número
+                         <input type="text" disabled name="neighborhood" id="neighborhood" value="{{$addressForm->neighborhood}}"
+                        class="border border-gray-400 rounded-lg h-8 w-72 px-3 text-gray-400 bg-white">
                     </div>
-                    <input type="text" disabled name="neighborhood" id="neighborhood" value="Brasilia"
-                        class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
-                    <input type="text" disabled name="cep" id="cep" value="62670000"
+                    <input type="text" disabled name="city" id="city" value="{{$addressForm->city}}"
+                    class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
+                    <input type="text" disabled name="cep" id="cep" value="{{$addressForm->cep}}"
                         class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                     <div class="flex flex-row justify-end gap-4">
                         <button class="text-pink-600 font-bold pb-8">Editar dados</button>

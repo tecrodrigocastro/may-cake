@@ -82,7 +82,7 @@ class UserResource extends Resource
                             TextInput::make('city')->required()->label('Cidade'),
                             TextInput::make('cep')->required()->label('CEP'),
                         ])
-                        ->columns(2),
+                        ->columns(2)->grid(2)->columnSpanFull(),
                 ]),
             ]);
     }
