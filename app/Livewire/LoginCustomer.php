@@ -50,6 +50,6 @@ class LoginCustomer extends Component
     public function logout()
     {
         auth()->logout();
-        return redirect()->to('/');
+        return redirect()->to('/login');
     }
 }

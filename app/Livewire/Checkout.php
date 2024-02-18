@@ -22,7 +22,12 @@ class Checkout extends Component
     public $selectedAddress;
     public $addressForm;
 
-    public bool $showModal;
+    public bool $showModal = false;
+
+    public $street;
+    public $city;
+    public $neighborhood;
+    public $cep;
 
     public function mount(CartService $cartService)
     {
@@ -75,6 +80,30 @@ class Checkout extends Component
 
         // save the order
         // redirect to thank you page
+    }
+
+    public function registerAdreesse()
+    {
+
+        dd("cheguei aqui");
+
+        $this->validate([
+            'cep' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'neighborhood' => 'required',
+        ]);
+
+        $this->user->adreesses()->create([
+            'cep' => $this->cep,
+            'street' => $this->street,
+            'city' => $this->city,
+            'neighborhood' => $this->neighborhood,
+        ]);
+
+        $this->addresses = $this->user->adreesses;
+
+        $this->showModal = false;
     }
 
     public function render()
