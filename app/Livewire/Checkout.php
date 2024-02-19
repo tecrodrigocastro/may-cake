@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Adreesse;
+use App\Models\{Adreesse, Order};
 use App\Services\CartService;
 use Livewire\Component;
 
@@ -72,24 +72,48 @@ class Checkout extends Component
         $this->addressForm = new Adreesse();
     }
 
-    public function save()
+    public function save(CartService $service)
     {
-
         $messages = [
-            'payment.required' => 'Selecione uma forma de pagamento.',
+            'payment.required'         => 'Selecione uma forma de pagamento.',
+            'selectedAddress.required' => 'Selecione um endereço de entrega.',
         ];
 
         $this->validate([
-            'payment' => 'required',
+            'payment'         => 'required',
+            'selectedAddress' => 'required',
         ], $messages);
 
-        dump($this->only('payment'));
+        $order = Order::create([
+            'adreesses_id' => $this->selectedAddress,
+            'user_id'      => $this->user->id,
+            'total_price'  => $this->total + $this->delivery_price,
+            'payment'      => $this->payment,
+            'status'       => 'new',
+        ]);
+
+        if ($order) {
+            foreach ($this->items as $item) {
+                $order->items()->create([
+                    'product_id' => $item['id'],
+                    'quantity'   => $item['quantity'],
+                    'subtotal'   => $item['subtotal'],
+                ]);
+            }
+
+            $service->clearCart();
+            session()->flash('message', 'Pedido realizado com sucesso!');
+
+            return redirect()->route('profile');
+        }
+
+        session()->flash('message', 'Erro ao realizar o pedido!');
 
         // save the order
         // redirect to thank you page
     }
 
-    public function registerAdreesse()
+    /*   public function registerAdreesse()
     {
 
         dd("cheguei aqui");
@@ -111,7 +135,7 @@ class Checkout extends Component
         $this->addresses = $this->user->adreesses;
 
         $this->showModal = false;
-    }
+    } */
 
     public function render()
     {

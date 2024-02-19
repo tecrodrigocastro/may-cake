@@ -83,6 +83,12 @@
                             class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                         <input type="text" disabled name="cep" id="cep" value="{{ $addressForm->cep }}"
                             class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
+
+                        @error('selectedAddress')
+                            <div class="bg-red-200  rounded-md w-96 text-red-700 text-center">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                         <div class="flex flex-row justify-end gap-4">
                             {{-- <button  class="text-pink-600 font-bold pb-8">Editar dados</button>
                             <p class="text-pink-600">|</p> --}}
