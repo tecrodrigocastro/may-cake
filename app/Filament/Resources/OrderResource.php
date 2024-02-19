@@ -154,10 +154,17 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('payment')
                     ->label('Pagamento')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pix'         => 'Pix',
+                        'cash'        => 'Em Dinheiro',
+                        'credit_card' => 'Cartão de Credito',
+                        'debit_card'  => 'Cartão de Debito',
+                        default       => 'Pix',
+                    }),
 
                 Tables\Columns\TextColumn::make('total_price')
                     ->label('Preço Total')
+                    ->money('brl')
                     ->searchable()
                     ->sortable(),
 
