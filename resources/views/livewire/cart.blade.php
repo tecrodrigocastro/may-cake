@@ -33,8 +33,54 @@
 
             <h1 class="text-4xl font-bold text-pink-600">Carrinho</h1>
 
+            <table class="table-auto">
+                <thead class="bg-pink-100 h-16 text-pink-600 font-bold text-xl">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço Unitario</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($items as $item)
+                        <tr class="text-center text-lg">
+                            <td class="py-3 px-3 text-start">
+                                <div class="inline-flex items-center gap-2">
+                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="" class="w-24">
+                                    <p>{{ $item['name'] }}</p>
+                                </div>
+                            </td>
+                            <td>R$ {{ $item['unitPrice'] }}</td>
+                            <td>
+                                <div class="flex flex-row gap-2 justify-center items-center">
+                                    <button wire:click="decrementFromCart({{ $item['id'] }})"
+                                        class="w-8 h-8 bg-pink-700 text-white rounded-full">-</button>
+                                    <p>{{ $item['quantity'] }}</p>
+                                    <button wire:click="addToCart({{ $item['id'] }})"
+                                        class="w-8 h-8 bg-pink-700 text-white rounded-full">+</button>
+                                </div>
+                            </td>
+                            <td>R$ {{ $item['subtotal'] }}</td>
+                            <td> <button wire:click="removeFromCart({{ $item['id'] }})"
+                                    wire:confirm="Tem certeza de que deseja excluir este produto?" type="button"
+                                    class="w-8 h-8  text-white rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#CB3C68"
+                                        class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                        <path
+                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                    </svg>
+                                </button></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
             <!-- HR -->
-            <div class="flex flex-col bg-pink-100 justify-center text-center h-16">
+            {{-- <div class="flex flex-col bg-pink-100 justify-center text-center h-16">
 
                 <div class="flex flex-row justify-between text-center px-11 text-pink-600 font-bold text-xl">
                     <p>Produto</p>
@@ -45,7 +91,7 @@
                         <p>Excluir</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- END HR -->
 
             @if (count($items) == 0)
@@ -56,7 +102,7 @@
             @endif
 
             <!-- CONTENT -->
-            @foreach ($items as $item)
+            {{--   @foreach ($items as $item)
                 <div class="flex flex-row  justify-between items-center px-12">
                     <div class="flex flex-row gap-10 justify-center items-center">
                         <img src="{{ asset('storage/' . $item['image']) }}" alt="" class="w-24">
@@ -86,7 +132,7 @@
                         </button>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
 
             <!-- END CONTENT -->
             <!-- FR -->
@@ -100,13 +146,12 @@
             <!-- END HR -->
             <!-- BUTTONS -->
             <div class="flex flex-row justify-end gap-3">
-                <button class="h-9  px-3  text-pink-600 border border-pink-600 rounded-full ">
+                <a href="{{route("home-customer")}}" class=" px-3 py-1  text-pink-600 border border-pink-600 rounded-full items-center text-center">
                     <div class="flex flex-row justify-around items-center">
                         <p class="font-bold">Continuar comprando</p>
-
                     </div>
 
-                </button>
+                </a>
                 <a href="{{ route('checkout') }}">
                     <button class="h-9 px-3 bg-pink-700 text-white rounded-full ">
                         <div class="flex flex-row justify-around items-center font-bold">

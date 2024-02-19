@@ -16,26 +16,49 @@
 
                 <div x-show="openTab === 1"
                     class="transition-all duration-300 bg-white p-4 rounded-lg shadow-md border-l-4 border-pink-600 min-h-[600px]">
+                   @if (session('message'))
+                        <div class="bg-green-500 text-white p-3 rounded font-bold">
+                            {{ session('message') }}
+                        </div>
+                   @endif
+
+                   @if (session('error'))
+                   <div class="bg-red-500 text-white p-3 rounded font-bold">
+                       {{ session('error') }}
+                   </div>
+              @endif
+
+
                     <h2 class="text-2xl font-semibold mb-2 text-pink-600">Informações Básicas</h2>
                     <div class="flex flex-col">
-                        <div class="flex flex-row justify-around ">
-                            <div class="flex flex-col">
-                                <p class="text-gray-700">Nome</p>
-                                <p class="text-pink-600 font-bold text-2xl">{{ $user->name }}</p>
+                        <form wire:submit="updateUser">
+                            <div class="flex flex-row justify-around ">
+                                <div class="flex flex-col">
+                                    <p class="text-gray-700">Nome</p>
+                                    <input wire:model="name" type="text" class="text-pink-600 font-bold text-2xl"
+                                        value="{{ $user->name }}">
+                                </div>
+                                <div class="flex flex-col">
+                                    <p class="text-gray-700">Email</p>
+                                    <input wire:model="email" type="email" class="text-pink-600 font-bold text-2xl"
+                                        value="{{ $user->email }}">
+                                </div>
+                                <div class="flex flex-col">
+                                    <p class="text-gray-700">Telefone</p>
+                                    <input wire:model="phone" type="text" class="text-pink-600 font-bold text-2xl"
+                                        value="{{ $user->phone }}">
+                                </div>
+                                <div class="flex flex-col">
+                                    <p class="text-gray-700">CPF</p>
+                                    <input wire:model="cpf" type="text" class="text-pink-600 font-bold text-2xl"
+                                        value="{{ $user->cpf }}">
+                                </div>
+
+                                <button type="submit"
+                                    class="bg-pink-700 px-6 py-2 rounded-md text-white font-bold ">Editar</button>
                             </div>
-                            <div class="flex flex-col">
-                                <p class="text-gray-700">Email</p>
-                                <p class="text-pink-600 font-bold text-2xl">{{ $user->email }}</p>
-                            </div>
-                            <div class="flex flex-col">
-                                <p class="text-gray-700">Telefone</p>
-                                <p class="text-pink-600 font-bold text-2xl">{{ $user->phone }}</p>
-                            </div>
-                            <div class="flex flex-col">
-                                <p class="text-gray-700">CPF</p>
-                                <p class="text-pink-600 font-bold text-2xl">{{ $user->cpf }}</p>
-                            </div>
-                        </div>
+                        </form>
+
                         <h2 class="text-2xl font-semibold mb-2 text-pink-600">Endereços</h2>
                         <div class="grid grid-cols-2 p-4  gap-2">
                             @foreach ($user->adreesses as $adreess)
