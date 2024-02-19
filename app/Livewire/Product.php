@@ -12,19 +12,27 @@ class Product extends Component
 
     public $lastProducts = null;
 
-    public function mount($id)
+    public $count = 1;
+
+    public $cartCount;
+
+
+
+    public function mount(CartService $cartService, $id)
     {
         $this->product = ModelsProduct::find($id);
 
         $this->lastProducts = ModelsProduct::where('id', '!=', $id)->limit(3)->get();
-    }
 
-    public $count = 1;
+        $this->cartCount = $cartService->getCartCount();
+    }
 
     public function addToCart(CartService $cartService)
     {
         //$this->dispatch('updateCart', $this->product, $this->count);
         $cartService->addToCart($this->product->id, $this->count);
+
+       $this->mount($cartService, $this->product->id);
     }
 
     public function increment()
