@@ -83,6 +83,20 @@ class CartService
         return $total;
     }
 
+    public function clearCart(): void
+    {
+        $shoppingCart = session('shoppingCart', []);
+        unset($shoppingCart);
+    }
+
+    public function getCartCount(): int
+    {
+        $shoppingCart = session('shoppingCart', []);
+        $count        = count($shoppingCart);
+
+        return $count;
+    }
+
     public function getShoppingCart(): array
     {
         return session('shoppingCart', []);
