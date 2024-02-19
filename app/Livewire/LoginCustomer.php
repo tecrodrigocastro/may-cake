@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class LoginCustomer extends Component
 {
-
     public $email;
+
     public $password;
 
     public function render()
@@ -26,16 +26,15 @@ class LoginCustomer extends Component
     public function login()
     {
         $this->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'    => 'required|email',
+            'password' => 'required',
         ]);
-
 
         if (auth()->attempt(['email' => $this->email, 'password' => $this->password])) {
             return redirect()->to('/');
         } else {
 
-           // dump('erro');
+            // dump('erro');
             session()->flash('error', 'Email or password is incorrect');
         }
 
@@ -50,6 +49,7 @@ class LoginCustomer extends Component
     public function logout()
     {
         auth()->logout();
+
         return redirect()->to('/login');
     }
 }

@@ -2,21 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\{Pages, RelationManagers};
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\{DateTimePicker, Fieldset, Repeater, Select, TextInput};
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\{Forms, Tables};
+use Illuminate\Database\Eloquent\{Builder, SoftDeletingScope};
 use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
@@ -63,12 +56,12 @@ class UserResource extends Resource
                             return $context === 'edit'; // && auth()->id() != request()->route('record');
                         }),
 
-                        Select::make('type')
-                        ->label('Tipo de usuário')
-                        ->options([
-                            'admin' => 'Administrador',
-                            'customer' => 'Cliente',
-                        ])
+                    Select::make('type')
+                    ->label('Tipo de usuário')
+                    ->options([
+                        'admin'    => 'Administrador',
+                        'customer' => 'Cliente',
+                    ]),
 
                 ]),
 
@@ -135,10 +128,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
+            'index'  => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view'   => Pages\ViewUser::route('/{record}'),
+            'edit'   => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

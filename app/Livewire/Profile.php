@@ -2,44 +2,45 @@
 
 namespace App\Livewire;
 
-use App\Models\Order;
-use App\Models\User;
+use App\Models\{Order, User};
 use Livewire\Component;
 
 class Profile extends Component
 {
-
     public User $user;
 
     public $name;
+
     public $email;
+
     public $phone;
+
     public $cpf;
 
-    public  $orders;
+    public $orders;
 
-    public array $status =  [
-        'new' => 'Novo',
+    public array $status = [
+        'new'        => 'Novo',
         'processing' => 'Em processo',
-        'shipped' => 'Enviado',
-        'delivered' => 'Entregue',
-        'canceled' => 'Cancelado',
+        'shipped'    => 'Enviado',
+        'delivered'  => 'Entregue',
+        'canceled'   => 'Cancelado',
     ];
 
     public array $payment = [
-        'pix' => 'Pix',
-        'cash' => 'Dinheiro',
-        'debit_card' => 'Cartão de débito',
+        'pix'         => 'Pix',
+        'cash'        => 'Dinheiro',
+        'debit_card'  => 'Cartão de débito',
         'credit_card' => 'Cartão de crédito',
     ];
 
     public function mount()
     {
-        $this->user = auth()->user();
-        $this->name = $this->user->name;
+        $this->user  = auth()->user();
+        $this->name  = $this->user->name;
         $this->email = $this->user->email;
         $this->phone = $this->user->phone;
-        $this->cpf = $this->user->cpf;
+        $this->cpf   = $this->user->cpf;
 
         /*         $this->orders = Order::where('user_id', $this->user->id)->orderBy('created_at', 'DESC')->get()->toArray();
  */
@@ -52,17 +53,17 @@ class Profile extends Component
     public function updateUser()
     {
         $this->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'required|email',
             'phone' => 'required',
-            'cpf' => 'required',
+            'cpf'   => 'required',
         ]);
 
         $user_update = $this->user->update([
-            'name' => $this->name,
+            'name'  => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'cpf' => $this->cpf,
+            'cpf'   => $this->cpf,
         ]);
 
         if (!$user_update) {

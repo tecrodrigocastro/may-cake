@@ -19,14 +19,19 @@ class Checkout extends Component
     public $user;
 
     public $addresses;
+
     public $selectedAddress;
+
     public $addressForm;
 
     public bool $showModal = false;
 
     public $street;
+
     public $city;
+
     public $neighborhood;
+
     public $cep;
 
     public function mount(CartService $cartService)
@@ -36,7 +41,6 @@ class Checkout extends Component
         $this->addresses = $this->user->adreesses;
 
         $this->addressForm = new Adreesse();
-
 
         $this->items = $cartService->getShoppingCart();
         //$this->total = array_sum(array_column($this->items, 'subtotal'));
@@ -52,13 +56,12 @@ class Checkout extends Component
         $this->addressForm = $this->addresses->find($this->selectedAddress);
     }
 
-
     public function addAddress()
     {
         $this->validate([
-            'addressForm.cep' => 'required',
-            'addressForm.street' => 'required',
-            'addressForm.city' => 'required',
+            'addressForm.cep'          => 'required',
+            'addressForm.street'       => 'required',
+            'addressForm.city'         => 'required',
             'addressForm.neighborhood' => 'required',
         ]);
 
@@ -72,9 +75,13 @@ class Checkout extends Component
     public function save()
     {
 
+        $messages = [
+            'payment.required' => 'Selecione uma forma de pagamento.',
+        ];
+
         $this->validate([
             'payment' => 'required',
-        ]);
+        ], $messages);
 
         dump($this->only('payment'));
 
@@ -88,16 +95,16 @@ class Checkout extends Component
         dd("cheguei aqui");
 
         $this->validate([
-            'cep' => 'required',
-            'street' => 'required',
-            'city' => 'required',
+            'cep'          => 'required',
+            'street'       => 'required',
+            'city'         => 'required',
             'neighborhood' => 'required',
         ]);
 
         $this->user->adreesses()->create([
-            'cep' => $this->cep,
-            'street' => $this->street,
-            'city' => $this->city,
+            'cep'          => $this->cep,
+            'street'       => $this->street,
+            'city'         => $this->city,
             'neighborhood' => $this->neighborhood,
         ]);
 

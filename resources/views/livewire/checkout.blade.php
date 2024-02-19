@@ -84,13 +84,14 @@
                         <input type="text" disabled name="cep" id="cep" value="{{ $addressForm->cep }}"
                             class="border border-gray-400 rounded-lg h-8 w-96 px-3 text-gray-400 bg-white">
                         <div class="flex flex-row justify-end gap-4">
-                            <button class="text-pink-600 font-bold pb-8">Editar dados</button>
-                            <p class="text-pink-600">|</p>
+                            {{-- <button  class="text-pink-600 font-bold pb-8">Editar dados</button>
+                            <p class="text-pink-600">|</p> --}}
                             <button type="button" wire:click="$set('showModal', true)"
-                                class="text-pink-600 font-bold pb-8 cursor-pointer">Adicionar Endereço</button>
+                                class="text-pink-600 font-bold pb-8 cursor-pointer">Adicionar Endereço
+                            </button>
                         </div>
 
-                        @if ($showModal)
+                        {{-- @if ($showModal)
                             <form wire:submit="registerAdreesse">
 
                                 <div class="flex justify-center items-center h-1/2">
@@ -191,11 +192,12 @@
                                             </div>
 
 
+
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                        @endif
+                        @endif --}}
 
 
 
@@ -231,7 +233,11 @@
                                 class="h-6 w-6">
                             <label for="cash" class="text-pink-600">Dinheiro</label>
                         </div>
-
+                        @error('payment')
+                            <div class="bg-red-200  rounded-md w-96 text-red-700 text-center">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @enderror
                     </div>
 
                     <!-- END PAYMENT METHOD -->

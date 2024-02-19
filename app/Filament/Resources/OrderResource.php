@@ -28,7 +28,7 @@ class OrderResource extends Resource
                 Fieldset::make('Dados do pedido')->schema([
                     Select::make('user_id')
                         ->label('Cliente')
-                        ->options(User::where('type','customer')->pluck('name', 'id'))
+                        ->options(User::where('type', 'customer')->pluck('name', 'id'))
                         ->reactive()
                         //->relationship('user', 'name')
                         ->required(),

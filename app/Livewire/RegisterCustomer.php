@@ -9,8 +9,11 @@ use Livewire\Component;
 class RegisterCustomer extends Component
 {
     public $name;
+
     public $email;
+
     public $cpf;
+
     public $password;
 
     public function render()
@@ -21,23 +24,22 @@ class RegisterCustomer extends Component
     public function register()
     {
         $this->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'cpf' => 'required',
+            'name'     => 'required',
+            'email'    => 'required|email',
+            'cpf'      => 'required',
             'password' => 'required|min:6',
         ]);
 
         $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'cpf' => $this->cpf,
+            'name'     => $this->name,
+            'email'    => $this->email,
+            'cpf'      => $this->cpf,
             'password' => Hash::make($this->password),
         ]);
 
         auth()->login($user);
 
         redirect()->to('/');
-
 
         /*       if ($user) {
             session()->flash('success', 'Cadastro realizado com sucesso');
