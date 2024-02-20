@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('adreesses', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->after('id');
+            //$table->foreignId('user_id')->constrained()->after('id');
         });
     }
 
@@ -21,7 +21,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('adreesses', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+            //$table->dropColumn('user_id');
         });
     }
 };

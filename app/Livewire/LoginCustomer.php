@@ -46,10 +46,13 @@ class LoginCustomer extends Component
         } */
     }
 
-    public function logout()
+    public function logout(): void
     {
         auth()->logout();
 
-        return redirect()->to('/login');
+        session()->invalidate();
+        session()->regenerateToken();
+
+        redirect()->to('/login');
     }
 }
