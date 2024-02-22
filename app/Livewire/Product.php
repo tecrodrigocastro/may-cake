@@ -16,8 +16,6 @@ class Product extends Component
 
     public $cartCount;
 
-
-
     public function mount(CartService $cartService, $id)
     {
         $this->product = ModelsProduct::find($id);
@@ -32,7 +30,7 @@ class Product extends Component
         //$this->dispatch('updateCart', $this->product, $this->count);
         $cartService->addToCart($this->product->id, $this->count);
 
-       $this->mount($cartService, $this->product->id);
+        $this->mount($cartService, $this->product->id);
     }
 
     public function increment()

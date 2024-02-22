@@ -46,8 +46,8 @@ class ProductResource extends Resource
                     ->minFiles(3)
                     ->validationMessages([
                         'required' => 'O campo de imagens é obrigatório.',
-                        'min' => 'Tem que cadastrar no minimo 3 imagens.',
-                    ])
+                        'min'      => 'Tem que cadastrar no minimo 3 imagens.',
+                    ]),
             ]);
     }
 

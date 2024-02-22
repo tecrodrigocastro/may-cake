@@ -1,18 +1,18 @@
 <?php
 
 use App\Livewire\LoginCustomer;
-use Livewire\Livewire;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
 it('logs in an existing user', function () {
     // Create a user to test with
     $user = User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
+        'name'     => 'Test User',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -31,8 +31,8 @@ it('logs in an existing user', function () {
 it('does not log in a user with incorrect credentials', function () {
     // Create a user to test with
     User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
+        'name'     => 'Test User',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -51,8 +51,8 @@ it('does not log in a user with incorrect credentials', function () {
 it('logs out an authenticated user', function () {
     // Create a user to test with
     $user = User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
+        'name'     => 'Test User',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 

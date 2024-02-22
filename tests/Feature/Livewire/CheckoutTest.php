@@ -1,37 +1,35 @@
 <?php
 
 use App\Livewire\Checkout;
-use Livewire\Livewire;
+use App\Models\{Order, Product, User};
+use App\Services\CartService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Product;
-use App\Services\CartService;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
 it('saves an order', function () {
     // Create a user to test with
     $user = User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
+        'name'     => 'Test User',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
     $user->adreesses()->create([
-        'street' => 'Test Street',
-        'city' => 'Test City',
+        'street'       => 'Test Street',
+        'city'         => 'Test City',
         'neighborhood' => 'Test Neighborhood',
-        'cep' => '12345-678',
+        'cep'          => '12345-678',
     ]);
 
     // Create a product to test with
     $product = Product::create([
-        'name' => 'Test Product',
-        'price' => 100,
+        'name'        => 'Test Product',
+        'price'       => 100,
         'description' => 'Test Description',
-        'images' => '["test.jpg"]',
+        'images'      => '["test.jpg"]',
         // Add other product fields here
     ]);
 
@@ -40,7 +38,7 @@ it('saves an order', function () {
         ->set('user', $user)
         ->set('items', [
             [
-                'id' => $product->id,
+                'id'       => $product->id,
                 'quantity' => 1,
                 'subtotal' => $product->price,
             ],
@@ -55,16 +53,16 @@ it('saves an order', function () {
 
     // Assert that the order was created
     $this->assertDatabaseHas('orders', [
-        'user_id' => $user->id,
+        'user_id'     => $user->id,
         'total_price' => $product->price,
-        'payment' => 'credit_card',
-        'status' => 'new',
+        'payment'     => 'credit_card',
+        'status'      => 'new',
     ]);
 
     // Assert that the order item was created
     $this->assertDatabaseHas('order_product', [
         'product_id' => $product->id,
-        'quantity' => 1,
-        'subtotal' => $product->price,
+        'quantity'   => 1,
+        'subtotal'   => $product->price,
     ]);
 });

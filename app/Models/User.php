@@ -13,14 +13,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
 {
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->type === 'admin';
     }
-
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
