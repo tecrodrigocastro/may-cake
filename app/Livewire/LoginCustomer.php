@@ -7,9 +7,9 @@ use Livewire\Component;
 
 class LoginCustomer extends Component
 {
-    public $email;
+    public ?string $email;
 
-    public $password;
+    public ?string $password;
 
     public function render()
     {
@@ -35,7 +35,7 @@ class LoginCustomer extends Component
         } else {
 
             // dump('erro');
-            session()->flash('error', 'Email or password is incorrect');
+            session()->flash('error', 'Email ou senha incorretos');
         }
 
         /*  if (auth()->attempt(['email' => $this->email, 'password' => Hash::make($this->password)])) {
@@ -46,13 +46,13 @@ class LoginCustomer extends Component
         } */
     }
 
-    public function logout(): void
+    public function logout()
     {
         auth()->logout();
 
         session()->invalidate();
         session()->regenerateToken();
 
-        redirect()->to('/login');
+        return redirect()->to('/login');
     }
 }

@@ -32,16 +32,22 @@ class ProductResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('price')
                     ->label('Preço')
+                    ->prefix('R$')
                     ->required(),
                 Forms\Components\FileUpload::make('images')
                     ->label('Imagens')
                     ->image()
+                    ->required()
                     ->disk('public')
                     ->directory('products')
                     ->multiple()
                     ->downloadable()
                     ->openable()
-                    ->minFiles(3),
+                    ->minFiles(3)
+                    ->validationMessages([
+                        'required' => 'O campo de imagens é obrigatório.',
+                        'min' => 'Tem que cadastrar no minimo 3 imagens.',
+                    ])
             ]);
     }
 

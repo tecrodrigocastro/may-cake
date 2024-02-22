@@ -47,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])->brandName('May Cakes - Admin Panel');
+            ])->brandName('May Cakes - Admin Panel')
+            ->brandLogo(asset('images/logovertical.png'))->brandLogoHeight('50px');
     }
 }

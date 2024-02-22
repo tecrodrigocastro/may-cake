@@ -59,7 +59,11 @@
                             </div>
                         </form>
 
-                        <h2 class="text-2xl font-semibold mb-2 text-pink-600">Endereços</h2>
+                        <div class="flex flex-row">
+                            <h2 class="text-2xl font-semibold mb-2 text-pink-600">Endereços</h2>
+                            <button x-on:click="openModal = true"
+                                class="bg-pink-700 px-6 py-2 rounded-md text-white font-bold ml-4">+</button>
+                        </div>
                         <div class="grid grid-cols-2 p-4  gap-2">
                             @foreach ($user->adreesses as $adreess)
                                 <div class=" flex flex-col gap-2 bg-pink-200 px-5 py-5 rounded-md   ">
