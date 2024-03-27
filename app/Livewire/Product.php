@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product as ModelsProduct;
 use App\Services\CartService;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Product extends Component
@@ -16,8 +17,10 @@ class Product extends Component
 
     public $cartCount;
 
-    public function mount(CartService $cartService, $id)
+    #[On('add-cart')]
+    public function mount($id)
     {
+        $cartService = new CartService();
         $this->product = ModelsProduct::find($id);
 
         $this->lastProducts = ModelsProduct::where('id', '!=', $id)->limit(3)->get();
@@ -30,7 +33,7 @@ class Product extends Component
         //$this->dispatch('updateCart', $this->product, $this->count);
         $cartService->addToCart($this->product->id, $this->count);
 
-        $this->mount($cartService, $this->product->id);
+        $this->dispatch('add-cart', $this->product->id);
     }
 
     public function increment()

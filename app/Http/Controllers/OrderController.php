@@ -20,6 +20,7 @@ class OrderController extends Controller
             'adreesses_id' => 'required|exists:adreesses,id',
             'payment' => 'required',
             'items' => 'required|array',
+            'total_price' => 'required',
         ], [
             'user_id.required'    => 'Usuario é obrigatório',
             'user_id.exists'    => 'Usuario precisa ser válido',
@@ -48,7 +49,20 @@ class OrderController extends Controller
             $order->items()->create($item);
         }
 
-        return $this->success($order->with('items')->find($order->id));
+        /*
+        $order->items = $order->items->map(function ($item) {
+            $item->product = $item->product;
+            return $item;
+        }); */
+
+        $order = $order->with('items')->with('adreesses')->find($order->id);
+        $order->items = $order->items->map(function ($item) {
+            $item->product = $item->product;
+            return $item;
+        });
+
+
+        return $this->success($order);
     }
 
     public function getOrders(Request $request)
@@ -66,7 +80,14 @@ class OrderController extends Controller
         }
 
 
-        $orders = Order::with('items')->where('user_id', $request->user_id)->get();
+        $orders = Order::with('items')->where('user_id', $request->user_id)->with('adreesses')->get();
+        $orders = $orders->map(function ($order) {
+            $order->items = $order->items->map(function ($item) {
+                $item->product = $item->product;
+                return $item;
+            });
+            return $order;
+        });
 
         return $this->success($orders);
     }

@@ -7,13 +7,18 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request)
+
+    public function getProducts(Request $request)
     {
         $products = Product::all();
 
         return $this->success($products);
+    }
+
+    public function getProductById(Request $request)
+    {
+        $product = Product::find($request->id);
+
+        return $this->success($product);
     }
 }
