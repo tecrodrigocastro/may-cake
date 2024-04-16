@@ -75,10 +75,8 @@ class OrderResource extends Resource
                         ->content(function (Get $get, Set $set): string {
                             if ($get('items')) {
                                 $set('total_price', collect($get('items'))->sum('subtotal'));
-                                // dump($get('total_price'));
 
                                 return "";
-                                //return 'R$ ' . number_format(collect($get('products'))->sum('subtotal'), 2);
                             }
                             $set('total_price', 0);
 
