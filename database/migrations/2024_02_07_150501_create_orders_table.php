@@ -12,7 +12,7 @@ return new class () extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('adreesses_id')->constrained()->cascadeOnDelete();
             $table->enum('status', ['new', 'processing', 'shipped', 'delivered', 'canceled'])->default('new');
             $table->enum('payment', ['pix', 'cash', 'debit_card', 'credit_card'])->default('pix');

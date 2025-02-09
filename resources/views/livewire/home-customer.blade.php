@@ -1,5 +1,5 @@
 <div class="flex flex-col h-screen">
-    <div class="px-24 py-10  w-full flex flex-col">
+    <div class="px-24 py-10  w-full flex flex-col h-full">
         <!-- HEADER -->
         <x-header-profile />
 
